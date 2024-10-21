@@ -23,8 +23,8 @@ La solución se compone de tres proyectos:
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/AgusBalda/cine_back.git
-   cd cine_back
+   git clone https://github.com/AgusBalda/cine_front.git
+   cd cine_front
    npm i
    npm start
 
