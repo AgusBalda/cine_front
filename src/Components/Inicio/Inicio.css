@@ -1,0 +1,78 @@
+.Inicio{
+    background: linear-gradient(to bottom, #63acff, #15156e);
+    min-height: 100vh;
+}
+
+.Titulo{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #F2F2F2;
+    font-size: x-large;
+    padding-top: 2%;
+    font-weight: bold;
+    text-shadow: 5px 5px 10px rgb(0, 0, 0);
+    user-select: none;
+}
+
+.Integrantes{
+    display: grid;
+    color: #F2F2F2;
+    font-size: x-large;
+    position: fixed;
+    left: 5%;
+    bottom: 5%;
+    font-weight: bold;
+    text-shadow: 5px 5px 10px rgb(0, 0, 0);
+    user-select: none;
+}
+
+.logo{
+    display: flex;
+    position: fixed;
+    width: 200px; 
+    height: auto;
+    top: 2%;
+    left: 5%;
+    filter: brightness(1.1);
+    mix-blend-mode: multiply;
+    user-select: none;
+}
+
+.bt-login{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.bt-login-self{
+    font-size: x-large;
+    background-color: #63acff;
+    border-color: #F2F2F2;
+    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    border-radius: 10%;
+    color: rgb(51, 51, 51);
+    transition: 1s;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.4%;
+}
+
+.bt-login-self:hover{
+    transition: 0.5s;
+    color: #F2F2F2;
+    background-color: #1976D2;
+    transform: translateY(-5%);
+    box-shadow: 5px 5px 10px rgb(0, 0, 0);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
