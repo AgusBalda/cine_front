@@ -1,7 +1,14 @@
+
 import axios from "axios";
 
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const GET_POKEMON = 'GET_POKEMON';
+export const LOGIN = 'LOGIN'
+
+export const login = (usuario, contraseña) => ({
+  type: LOGIN,
+  payload: {usu: usuario, con: contraseña}
+})
 
 export const removeItem = (id) => ({
   type: REMOVE_ITEM,

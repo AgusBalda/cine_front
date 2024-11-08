@@ -1,16 +1,17 @@
-import {GET_POKEMON, REMOVE_ITEM} from '../actions';
+import {GET_POKEMON, LOGIN} from '../actions';
 
 const initialState = {
   items: [],
   contador: 1,
+  usuario: {usu: null, con: null}
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REMOVE_ITEM:
+    case LOGIN:
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
+        usuario: {usu: action.payload.usu, con: action.payload.con},
       };
     case GET_POKEMON:
         return{
