@@ -5,6 +5,8 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 
 export default function Login() {
+    
+
     return (
         <div className="Inicio">
             <div>
@@ -12,7 +14,9 @@ export default function Login() {
             </div>
             <div className="Conteiner">
                 <div className="Login-conteiner" >
-                    <form className="Form-Login">
+                    <form className="Form-Login" onSubmit={(e) =>{
+                        e.preventDefault();
+                    }}>
                         <h3>Iniciar Sesión</h3>
                         
                         <TextField id="input-with-sx" label="Ingresa tu Usuario" variant="standard" color="warning"   
