@@ -1,21 +1,20 @@
 
 import axios from "axios";
 
-export const REMOVE_ITEM = 'REMOVE_ITEM';
-export const GET_POKEMON = 'GET_POKEMON';
 export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
 
-export const login = (usuario, contraseña) => ({
-  type: LOGIN,
-  payload: {usu: usuario, con: contraseña}
-})
+export const login = (nombre, contraseña) => async dispatch =>{
+  const usuario = await axios.get(`https://cine-back-3.onrender.com/api/Usuarios/login?nombre=${nombre}&contrasena=${contraseña}`)
+  if(usuario.data === ""){
+    throw new Error("Usuario o la Contraseña es incorrecta");
+  }else {
+    return dispatch ({type: LOGIN, payload: usuario.data})
+  }
+}
 
-export const removeItem = (id) => ({
-  type: REMOVE_ITEM,
-  payload: id,
-});
-
-export const getPokemon = (id) => async dispatch => {
-    const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    return dispatch({type: GET_POKEMON, payload: pokemon.data})
+export const logout = () => {
+  return{
+    type: LOGOUT
+  }
 }

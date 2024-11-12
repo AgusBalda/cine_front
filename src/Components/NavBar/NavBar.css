@@ -1,0 +1,13 @@
+.navbar{
+    background-color: #333;
+    position: static;  /* Esto asegura que el navbar no sea fijo en la parte superior */
+    width: 100%;
+    padding: 10px 0;
+  }
+
+.navbarItems{
+    display: flex;
+    justify-content: space-evenly; /* Centra los ítems del navbar */
+    list-style: none;
+    
+}

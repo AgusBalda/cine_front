@@ -1,9 +1,7 @@
-import {GET_POKEMON, LOGIN} from '../actions';
+import {LOGIN, LOGOUT} from '../actions';
 
 const initialState = {
-  items: [],
-  contador: 1,
-  usuario: {usu: null, con: null}
+  usuario: {}
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,14 +9,13 @@ const rootReducer = (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        usuario: {usu: action.payload.usu, con: action.payload.con},
+        usuario: {usuario: action.payload},
       };
-    case GET_POKEMON:
-        return{
-            ...state,
-            items: [...state.items, action.payload],
-            contador: state.contador + 1
-        };
+    case LOGOUT:
+      return {
+      ...state,
+      usuario:  {}
+    };
     default:
       return state;
   }
