@@ -83,7 +83,7 @@ export default function Funciones () {
             return (
               <Switch
                 checked={params.value}
-                onChange={() => e.target.checked }
+                onChange={(e) => e.target.checked }
               />
             );
           },
