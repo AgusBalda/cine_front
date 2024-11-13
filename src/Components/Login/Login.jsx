@@ -19,7 +19,13 @@ export default function Login() {
 
     useEffect(() => {
         if(Object.keys(user).length === 1){
+            const timer = setTimeout(() => {
+                navegate("/home");
+              }, 3000);
             setLog(true)
+            return () => clearTimeout(timer);
+        }else{
+            setLog(false)
         }
     })
 
@@ -50,7 +56,7 @@ export default function Login() {
                     }}>
                         <h3>Iniciar Sesión</h3>
                         
-                        <TextField id="input-with-sx" label="Ingresa tu Usuario" variant="standard" color="warning"   
+                        <TextField id="input-with-sx" label="Ingresa tu Email" variant="standard" color="warning"   
                         
                               InputLabelProps={{
                                 style: { fontSize: '20px' , color: '#F2F2F2'},
@@ -61,7 +67,7 @@ export default function Login() {
                               plaseholder= "Username"
                               value={username}
                               error= {error} 
-                              helperText={error ? 'Usuario o Contraseña incorrecto' : ''}
+                              helperText={error ? 'Email o Contraseña incorrecto' : ''}
                               onChange={(e) => (setUsername(e.target.value), setError(false))}
 
                             />

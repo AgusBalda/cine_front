@@ -3,6 +3,7 @@
     position: static;  /* Esto asegura que el navbar no sea fijo en la parte superior */
     width: 100%;
     padding: 10px 0;
+    box-shadow: 5px 5px 10px rgb(5, 2, 177);
   }
 
 .navbarItems{

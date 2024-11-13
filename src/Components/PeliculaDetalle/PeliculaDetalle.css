@@ -1,0 +1,11 @@
+.detalle_pelicula{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-content: center;
+    margin-top: 2%;
+    border: 2px, solid, black;
+    width: 30%; 
+    height: auto;
+}

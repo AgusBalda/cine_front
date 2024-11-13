@@ -9,7 +9,7 @@ const persistConfig = {
   key: 'root',        
   storage,
   whitelist: ['usuario'],
-  blackList: []
+  blackList: ['peliculas', 'pelicula', 'generos', 'idiomas', 'clasificaciones', 'directores', 'funciones']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

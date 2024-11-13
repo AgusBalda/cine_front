@@ -12,7 +12,7 @@ export default function Home() {
         if(Object.keys(user).length === 0){
             navegate("/login")
         }
-    }, [])
+    },[navegate, user])
     return (
         <div className="Home">
             <div>

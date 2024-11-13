@@ -63,7 +63,7 @@ export default function NavBar(){
                         }}
                     >
                         <MenuItem onClick={() =>navegate("/peliculas")}>Lista de Peliculas</MenuItem>
-                        <MenuItem onClick={() =>navegate("/peliculas/crear")}>Crear Pelicula</MenuItem>
+                        <MenuItem onClick={() =>navegate("/crear_pelicula")}>Crear Pelicula</MenuItem>
                     </Menu>
                 </div>
                 <div>

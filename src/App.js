@@ -7,6 +7,7 @@ import PeliculaDetalle from './Components/PeliculaDetalle/PeliculaDetalle';
 import CrearPelicula from './Components/CrearPelicula/CrearPelicula';
 import Funciones from './Components/Funciones/Funciones';
 import CrearFuncion from './Components/CrearFuncion/CrearFuncion';
+import Peliculas from './Components/Peliculas/Peliculas';
 
 function App() {
 
@@ -17,10 +18,11 @@ function App() {
           <Route exact path="/" Component={Inicio}/>
           <Route exact path="/home" Component={Home}/>
           <Route exact path="/login" Component={Login}/>
+          <Route exact path="/peliculas" Component={Peliculas} />
           <Route exact path="/pelicula/:id" Component={PeliculaDetalle}/>
-          <Route exact path="/pelicula/crear" Component={CrearPelicula}/>
-          <Route exact path="/funcion" Component={Funciones}/>
-          <Route exact path="/funcion/crear" Component={CrearFuncion}/>
+          <Route exact path="/crear_pelicula" Component={CrearPelicula}/>
+          <Route exact path="/funciones" Component={Funciones}/>
+          <Route exact path="/funciones/crear" Component={CrearFuncion}/>
         </Routes>
       </Router>
     </>

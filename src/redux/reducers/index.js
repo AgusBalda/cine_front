@@ -1,7 +1,14 @@
-import {LOGIN, LOGOUT} from '../actions';
+import {CLEARDETALLE, GETCLASIFICACION, GETDIRECTORES, GETFUNCIONES, GETGENEROS, GETIDIOMAS, GETPELICULADETALLE, GETPELICULAS, LOGIN, LOGOUT} from '../actions';
 
 const initialState = {
-  usuario: {}
+  usuario: {},
+  peliculas: [],
+  pelicula: "",
+  funciones: [],
+  generos: [],
+  clasificaciones: [],
+  directores: [],
+  idiomas: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,6 +23,46 @@ const rootReducer = (state = initialState, action) => {
       ...state,
       usuario:  {}
     };
+    case GETPELICULAS:
+      return{
+        ...state,
+        peliculas: action.payload
+      }
+    case GETPELICULADETALLE:
+      return{
+        ...state,
+        pelicula: action.payload
+      }
+    case CLEARDETALLE:
+      return{
+        ...state,
+        pelicula: ""
+      }
+    case GETGENEROS:
+      return{
+        ...state,
+        generos: action.payload
+      }
+    case GETDIRECTORES:
+      return{
+        ...state,
+        directores: action.payload
+      }
+    case GETCLASIFICACION:
+      return{
+        ...state,
+        clasificaciones: action.payload
+      }
+    case GETIDIOMAS:
+      return{
+        ...state,
+        idiomas: action.payload
+      }
+    case GETFUNCIONES:
+      return{
+        ...state,
+        funciones: action.payload
+      }
     default:
       return state;
   }
