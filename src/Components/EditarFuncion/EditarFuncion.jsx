@@ -47,7 +47,7 @@ export default function EditarFuncion() {
         
         return () => dispatch(clearDetalle())
     }, [id, dispatch])
-
+    console.log(funcion)
     useEffect(() => {
         if (funcion !== "") {
             setPrecio(funcion.precio)  
@@ -56,9 +56,9 @@ export default function EditarFuncion() {
             setSubtitulos(funcion.subtitulo)
             setDia(funcion.dia)
             setIdSala(funcion.idSala)
-            setIdPelicula(funcion.codPelicula)
-            if(funcion.promocion !== null){
-                setIdPromocion(funcion.promocion)
+            setIdPelicula(funcion.idPelicula)
+            if(funcion.idPromocion !== null){
+                setIdPromocion(funcion.idPromocion)
             }else{
                 setIdPromocion(0)
             }

@@ -28,7 +28,7 @@ export default function Funciones () {
       await dispatch(deleteFuncion(id))
       setTimeout(() => {
         setDisable(false)
-      }, 1000);
+      }, 1500);
     }
 
     const columns = [
