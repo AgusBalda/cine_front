@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './CrearPelicula.css';
+import './EditarPelicula.css';
 import TextField from '@mui/material/TextField';
 import NavBar from "../NavBar/NavBar";
 import {FormHelperText } from '@mui/material';
@@ -13,15 +13,19 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers";
 import { format} from 'date-fns';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from "react-redux";
-import { getDirectores, getGeneros, getIdiomas, getClasificacion, postPelicula } from "../../redux/actions";
+import { getDirectores, getGeneros, getIdiomas, getClasificacion, postPelicula, getPelicualDetalle, putPelicula } from "../../redux/actions";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function CrearPelicula() {
+export default function EditarPelicula() {
+      const pelicula = useSelector(state => state.pelicula)
       const generos = useSelector(state => state.generos)
       const clasificacion = useSelector(state => state.clasificaciones)
       const directores = useSelector(state => state.directores)
       const idiomas = useSelector(state => state.idiomas)
       const dispatch = useDispatch()
+      const {id} = useParams()
       const [selectedDate, setSelectDate] = useState(null)
       const [selectDateF, setSelectDateF] = useState(null)
       const [titulo, setTitulo] = useState("")
@@ -32,6 +36,7 @@ export default function CrearPelicula() {
       const [loading, setLoading] = useState(false);
       const [idioma, setIdioma] = useState("")
       const [director, setDirector] = useState("")
+      const navegate = useNavigate();
       const [error1, setError1] = useState(false)
       const [error2, setError2] = useState(false)
       const [error3, setError3] = useState(false)
@@ -39,11 +44,28 @@ export default function CrearPelicula() {
       const [error5, setError5] = useState(false)
 
       useEffect(() => {
+        dispatch(getPelicualDetalle(id))
         dispatch(getIdiomas())
         dispatch(getDirectores())
         dispatch(getGeneros())
         dispatch(getClasificacion())
       }, [])
+      console.log(pelicula)
+      
+      useEffect(() => {
+        if(pelicula !== ""){
+            setSelectDate(dayjs(pelicula.fechaEstreno))
+            setSelectDateF(format(dayjs(pelicula.fechaEstreno), 'yyyy-MM-dd'))
+            setTitulo(pelicula.titulo)
+            setDuracion(pelicula.duracionMin)
+            setUrl(pelicula.portada)
+            setClas(pelicula.idClasificacionEdad)
+            setGenero(pelicula.idGenero)
+            setIdioma(pelicula.idIdioma)
+            setDirector(pelicula.idDirector)
+        }
+
+      }, [pelicula])
 
       const handleDateChange = (newDate) => {
         setError1(false)
@@ -85,9 +107,10 @@ export default function CrearPelicula() {
           }
           else{
             try{
-              console.log(selectDateF)
-              await dispatch(postPelicula(selectDateF, titulo, duracion, url, genero, clas, idioma, director))
-              alert("pelicula creada")
+              setLoading(true)
+              await dispatch(putPelicula(selectDateF, titulo, duracion, url, genero, clas, idioma, director, id))
+              navegate("/peliculas")
+              setLoading(false)
             }catch(e){
               alert(e)
             }
@@ -210,7 +233,7 @@ export default function CrearPelicula() {
                     variant="contained"
                     disabled={loading}
                     sx={{backgroundColor: '#63acff', '&:hover': {backgroundColor: '#1976D2' }, fontSize:"large"}}>
-                    {loading ? 'Validando...' : 'Crear Pelicula'}
+                    {loading ? 'Validando...' : 'Editar Pelicula'}
                   </Button>
             </form>
         </div>

@@ -1,4 +1,4 @@
-import {CLEARDETALLE, GETCLASIFICACION, GETDIRECTORES, GETFUNCIONES, GETGENEROS, GETIDIOMAS, GETPELICULADETALLE, GETPELICULAS, LOGIN, LOGOUT} from '../actions';
+import {CLEARDETALLE, GETCLASIFICACION, GETDIRECTORES, GETFUNCIONES, GETFUNCIONID, GETGENEROS, GETIDIOMAS, GETPELICULADETALLE, GETPELICULAS, GETPROMOCIONES, GETSALAS, GETTIPOSFUNCIONES, LOGIN, LOGOUT} from '../actions';
 
 const initialState = {
   usuario: {},
@@ -8,7 +8,12 @@ const initialState = {
   generos: [],
   clasificaciones: [],
   directores: [],
-  idiomas: []
+  idiomas: [],
+  funcion: "",
+  promociones: [],
+  tiposFuncion: [],
+  salas: [],
+
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -36,7 +41,8 @@ const rootReducer = (state = initialState, action) => {
     case CLEARDETALLE:
       return{
         ...state,
-        pelicula: ""
+        pelicula: "",
+        funcion: ""
       }
     case GETGENEROS:
       return{
@@ -62,6 +68,26 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         funciones: action.payload
+      }
+    case GETFUNCIONID:
+      return{
+        ...state,
+        funcion: action.payload
+      }
+    case GETPROMOCIONES:
+      return{
+        ...state,
+        promociones: action.payload
+      }
+    case GETSALAS:
+      return{
+        ...state,
+        salas: action.payload
+      }
+    case GETTIPOSFUNCIONES:
+      return{
+        ...state,
+        tiposFuncion: action.payload
       }
     default:
       return state;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate} from "react-router-dom";
-import { clearDetalle, getPeliculas, getPromociones, getSalas, getTipoFuncion, postFuncion } from "../../redux/actions";
+import { useNavigate, useParams } from "react-router-dom";
+import { clearDetalle, getFuncionId, getPeliculas, getPromociones, getSalas, getTipoFuncion, putFuncion } from "../../redux/actions";
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import FormControl from '@mui/material/FormControl';
@@ -16,38 +16,56 @@ import Button from "@mui/material/Button";
 import { format } from "date-fns";
 import Switch from '@mui/material/Switch';
 
-export default function CrearFuncion() {
+export default function EditarFuncion() {
+    const funcion = useSelector(state => state.funcion)
     const salas = useSelector(state => state.salas)
     const peliculas = useSelector(state => state.peliculas)
     const promociones = useSelector(state => state.promociones)
     const tipos = useSelector(state => state.tiposFuncion)
     const [selectedTime, setSelectedTime] = useState(dayjs());
-    const [selectedTimeF, setSelectedTimeF] = useState(format(dayjs(), "HH:mm:ss"));
+    const [selectedTimeF, setSelectedTimeF] = useState("");
     const [precio, setPrecio] = useState(0);
     const [subtitulos, setSubtitulos] = useState(false);
-    const [dia, setDia] = useState(1);
+    const [dia, setDia] = useState("");
     const [idSala, setIdSala] = useState("");
     const [idPelicula, setIdPelicula] = useState("");
-    const [idPromocion, setIdPromocion] = useState(0);
+    const [idPromocion, setIdPromocion] = useState("");
     const [idTipo, setIdTipo] = useState("");
     const dispatch = useDispatch()
+    const {id} = useParams()
     const [estado, setEstado] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error1, setError1] = useState(false)
-    const [error2, setError2] = useState(false)
-    const [error3, setError3] = useState(false)
-    const [error4, setError4] = useState(false)
     const navegate = useNavigate();
 
-
     useEffect(() => {
+        dispatch(getFuncionId(id))
         dispatch(getSalas())
         dispatch(getPeliculas())
         dispatch(getPromociones())
         dispatch(getTipoFuncion())
         
         return () => dispatch(clearDetalle())
-    }, [dispatch])
+    }, [id, dispatch])
+
+    useEffect(() => {
+        if (funcion !== "") {
+            setPrecio(funcion.precio)  
+            setSelectedTime(dayjs(funcion.horaInicio, "HH:mm:ss"))
+            setSelectedTimeF(format(dayjs(funcion.horaInicio, "HH:mm:ss"), "HH:mm:ss"))
+            setSubtitulos(funcion.subtitulo)
+            setDia(funcion.dia)
+            setIdSala(funcion.idSala)
+            setIdPelicula(funcion.codPelicula)
+            if(funcion.promocion !== null){
+                setIdPromocion(funcion.promocion)
+            }else{
+                setIdPromocion(0)
+            }
+            setIdTipo(funcion.idTipoFuncion)
+            setEstado(funcion.estado)
+        }
+    }, [funcion]);
 
     const handleTimeChange = (newValue) => {
         setError1(false)
@@ -60,7 +78,6 @@ export default function CrearFuncion() {
         }
       ;}
 
-    console.log(selectedTimeF)
     
     const handleChange = (event) => {
         const newValue = event.target.value;
@@ -74,19 +91,9 @@ export default function CrearFuncion() {
         e.preventDefault()
         if(selectedTimeF === ""){
             setError1(true)
-        }
-        else if(idSala === ""){
-            setError2(true)
-        }
-        else if(idPelicula === ""){
-            setError3(true)
-        }
-        else if(idTipo === ""){
-            setError4(true)
-        }
-        else{
+        }else{
             setLoading(true)
-            await dispatch(postFuncion(selectedTimeF, precio, subtitulos, dia, idPelicula, idSala,idPromocion,idTipo, estado))
+            await dispatch(putFuncion(selectedTimeF, precio, subtitulos, dia, idPelicula, idSala,idPromocion,idTipo, id, estado))
             navegate("/funciones")
             setLoading(false)
         }
@@ -156,18 +163,13 @@ export default function CrearFuncion() {
                       id="Sala"
                       value={idSala}
                       label="Sala"
-                      onChange={(e) => (setIdSala(e.target.value), setError2(false))}
+                      onChange={(e) => (setIdSala(e.target.value))}
                       >
                       {
                         salas ?
                         salas.map(s => {return(<MenuItem key={s.idSala} value={s.idSala}>Sala: {s.nroSala}</MenuItem>)}) : null
                       }
                   </Select>
-                  {error2 && (
-                            <FormHelperText style={{ color: 'red' , fontWeight: 'bold'}}>
-                              Por favor, seleccione una sala
-                            </FormHelperText>
-                          )}
                 </FormControl>
                 <FormControl>
                   <InputLabel id="Pelicula">Pelicula</InputLabel>
@@ -175,18 +177,13 @@ export default function CrearFuncion() {
                       id="Pelicula"
                       value={idPelicula}
                       label="Pelicula"
-                      onChange={(e) => (setIdPelicula(e.target.value), setError3(false))}
+                      onChange={(e) => (setIdPelicula(e.target.value))}
                       >
                       {
                         peliculas ?
                         peliculas.map(p => {return(<MenuItem key={p.codPelicula} value={p.codPelicula}>{p.titulo}</MenuItem>)}) : null
                       }
                   </Select>
-                  {error3 && (
-                            <FormHelperText style={{ color: 'red' , fontWeight: 'bold'}}>
-                              Por favor, seleccione una pelicula
-                            </FormHelperText>
-                          )}
                 </FormControl>
                 <FormControl>
                   <InputLabel id="Promocion">Promocion</InputLabel>
@@ -210,7 +207,7 @@ export default function CrearFuncion() {
                       id="Tipo"
                       value={idTipo}
                       label="Tipo"
-                      onChange={(e) => (setIdTipo(e.target.value), setError4(false))}
+                      onChange={(e) => (setIdTipo(e.target.value))}
                       >
                         
                       {
@@ -218,11 +215,6 @@ export default function CrearFuncion() {
                         tipos.map(t => {return(<MenuItem key={t.idTipoFuncion} value={t.idTipoFuncion}>{t.tipo}</MenuItem>)}) : null
                       }
                   </Select>
-                  {error4 && (
-                            <FormHelperText style={{ color: 'red' , fontWeight: 'bold'}}>
-                              Por favor, seleccione el tipo de funcion
-                            </FormHelperText>
-                          )}
                 </FormControl>
                 <Box       
                     display="flex"
@@ -246,7 +238,7 @@ export default function CrearFuncion() {
                     variant="contained"
                     disabled={loading}
                     sx={{backgroundColor: '#63acff', '&:hover': {backgroundColor: '#1976D2' }, fontSize:"large"}}>
-                    {loading ? 'Validando...' : 'Crear Funcion'}
+                    {loading ? 'Validando...' : 'Actualizar Funcion'}
                   </Button>
             </form>
         </div>

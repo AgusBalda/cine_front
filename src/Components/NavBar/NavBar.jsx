@@ -87,7 +87,7 @@ export default function NavBar(){
                         }}
                     >
                         <MenuItem onClick={() =>navegate("/funciones")}>Lista de Funciones</MenuItem>
-                        <MenuItem onClick={() =>navegate("/funciones/crear")}>Crear Funcion</MenuItem>
+                        <MenuItem onClick={() =>navegate("/crear_funcion")}>Crear Funcion</MenuItem>
                     </Menu>
                 </div>
                 <div>

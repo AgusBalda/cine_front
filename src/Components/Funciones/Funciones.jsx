@@ -1,35 +1,48 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import NavBar from "../NavBar/NavBar";
 import "./Funciones.css"
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from "react-redux";
-import { getFunciones} from "../../redux/actions";
+import { deleteFuncion, getFunciones} from "../../redux/actions";
 import Checkbox from '@mui/material/Checkbox';
 import Switch from '@mui/material/Switch';
-  
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+
+
 
 export default function Funciones () {
     const funciones = useSelector(state => state.funciones)
+    const [disable, setDisable] = useState(false)
     const dispatch = useDispatch()
 
 
     useEffect(() => {
         dispatch(getFunciones())
+
     })
+
+    const handleChange = async (id) =>{
+      setDisable(true)
+      await dispatch(deleteFuncion(id))
+      setTimeout(() => {
+        setDisable(false)
+      }, 1000);
+    }
 
     const columns = [
         { field: 'codFuncion', headerName: 'ID', width: 50 },
         {
           field: 'horaInicio',
           headerName: 'Hora',
-          width: 150,
+          width: 100,
           headerAlign: 'center', align: 'center' 
         },
         {
           field: 'precio',
           headerName: 'Precio',
-          width: 150,
+          width: 100,
           headerAlign: 'center', align: 'center' ,
           renderCell: (params) => {return "$ "+ params.value}
         },
@@ -37,7 +50,7 @@ export default function Funciones () {
           field: 'subtitulo',
           headerName: 'Subtitulado',
           type: 'number',
-          width: 110,
+          width: 100,
           headerAlign: 'center', align: 'center' ,
           renderCell: (params) => {
               return (
@@ -52,7 +65,7 @@ export default function Funciones () {
         {
           field: 'dia',
           headerName: 'Dia',
-          width: 110,
+          width: 100,
           headerAlign: 'center', align: 'center' ,
           renderCell: (params) => {
               const dias = [
@@ -62,32 +75,48 @@ export default function Funciones () {
             },
         },
         {
-          field: 'codPelicula',
+          field: 'tituloPeli',
           headerName: 'Pelicula',
-          width: 110,
+          width: 150,
           headerAlign: 'center', align: 'center' 
         },
         {
-          field: 'idTipoFuncion',
+          field: 'tipoFuncion',
           headerName: 'Tipo',
-          width: 110,
+          width: 150,
           headerAlign: 'center', align: 'center' 
         },
         {
           field: 'estado',
           headerName: 'Estado',
-          width: 150,
+          width: 100,
           headerAlign: 'center',
           align: 'center',
           renderCell: (params) => {
             return (
               <Switch
+                disabled={disable}
                 checked={params.value}
-                onChange={(e) => e.target.checked }
+                onChange={(e) => handleChange(params.row.codFuncion)}
               />
             );
           },
         },
+        {
+          field: 'editar',
+          headerName: 'Editar',
+          headerAlign: 'center', align: 'center' ,
+          width: 110,
+          renderCell: (params) => {
+              return (
+                <>
+                  <Link to={"/Funciones/" + params.row.codFuncion}>
+                    <Button>
+                      Editar
+                    </Button>
+                  </Link>
+              </>)}
+        }
       ];
 
     return (
@@ -96,7 +125,7 @@ export default function Funciones () {
                 <NavBar/>
             </div>
             <div className="ListPeliculas">
-                <Box sx={{ height: 400, width: '52%'}}>
+                <Box sx={{ height: 374, width: '52%'}}>
                     <DataGrid
                         
                         rows={funciones}
@@ -110,7 +139,7 @@ export default function Funciones () {
                         }}
                         pageSizeOptions={[5]}
                         disableRowSelectionOnClick
-                        getRowId={(pelicula) => pelicula.codPelicula} 
+                        getRowId={(funcion) => funcion.codFuncion} 
                     />
                 </Box>
             </div>

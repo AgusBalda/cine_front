@@ -1,11 +1,13 @@
 import "./Login.css"
 import imagen from "../../Utils/utn-icono.png"
 import React, { useEffect, useState } from "react";
-import { TextField} from "@mui/material";
+import { Box, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector} from "react-redux";
 import { login } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Label } from "@mui/icons-material";
 
 export default function Login() {
     const user = useSelector(state => state.usuario)
@@ -56,7 +58,7 @@ export default function Login() {
                     }}>
                         <h3>Iniciar Sesión</h3>
                         
-                        <TextField id="input-with-sx" label="Ingresa tu Email" variant="standard" color="warning"   
+                        <TextField id="input-with-sx" label="Ingresa tu Email" variant="standard" color="warning" type="email"  
                         
                               InputLabelProps={{
                                 style: { fontSize: '20px' , color: '#F2F2F2'},
@@ -90,9 +92,24 @@ export default function Login() {
                                 sx={{backgroundColor: '#63acff', '&:hover': {backgroundColor: '#1976D2' }, fontSize:"large"}}>
                                 {loading ? 'Validando...' : 'Iniciar sesión'}
                         </Button>
+                        <Box 
+                                sx={{
+                                    display: 'block',
+                                    marginTop: 2,
+                                    textAlign: 'center',
+                                }}
+                        >
+                            <Link to="/registrarse"
+                                style={{
+                                    color: '#F2F2F2',
+                                    fontSize: '1.1rem',
+                                }}
+                            >Registrarse?</Link>
+                        </Box>
                     </form>
                 }
                 </div>
+                    
             </div>
         </div>
     )
