@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./NavBar.css"
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -9,8 +9,10 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { useDispatch,useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions";
+import Stack from '@mui/material/Stack';
+import SvgIcon from '@mui/material/SvgIcon';
 
 
 export default function NavBar(){
@@ -23,6 +25,12 @@ export default function NavBar(){
     const openf = Boolean(anchorEl)
     const opena = Boolean(anchorAvatar)
     const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if(Object.keys(user).length === 0){
+            navegate("/login")
+        }
+    },[navegate, user])
 
     const handleClickPelicula = (event) => {
       setAnchorPeliculas(event.currentTarget);
@@ -39,9 +47,22 @@ export default function NavBar(){
       setAnchorAvatar(null);
     };
 
+    function HomeIcon(props) {
+        return (
+          <SvgIcon {...props}>
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </SvgIcon>
+        );
+      }
+
     return(
         <div className="navbar">
             <div className="navbarItems">
+                <Stack direction="row" spacing={3} sx={{ alignItems: 'flex-end' }}>
+                    <Link to="/home" style={{ color: 'inherit', textDecoration: 'none', color: '#003bdf'}}>
+                        <HomeIcon sx={{ fontSize: 40, cursor: 'pointer', '&:hover': { color: 'darkblue' }  }} />
+                    </Link>
+                </Stack>
                 <div>
                     <Button
                         id="pelicula-button"
