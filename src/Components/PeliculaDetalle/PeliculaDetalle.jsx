@@ -16,7 +16,7 @@ export default function PeliculaDetalle () {
     }, [id, dispatch])
 
     return (
-        <div>
+        <div class>
             <div>
                 <NavBar/>
             </div>

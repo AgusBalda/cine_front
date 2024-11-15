@@ -15,6 +15,7 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 
 
+
 export default function NavBar(){
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorPeliculas, setAnchorPeliculas] = React.useState(null);

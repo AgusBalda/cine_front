@@ -13,6 +13,7 @@
 }
 
 .Home{
-    background: linear-gradient(to bottom, #003bdf, #000000);
+    background: linear-gradient(to bottom, #cfd0d3, #000000);
     min-height: 100vh;
+    background: url('/public/cine2.jpg');
 }

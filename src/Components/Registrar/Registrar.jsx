@@ -53,7 +53,7 @@ export default function Registrar() {
     return (
         <div className="Inicio">
             <div>
-                <img className="logo" src={imagen} alt="logo-utn" />
+                
             </div>
             <div className="Conteiner">
                 

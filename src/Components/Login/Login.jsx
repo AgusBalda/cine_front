@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Label } from "@mui/icons-material";
 
+
 export default function Login() {
     const user = useSelector(state => state.usuario)
     const navegate = useNavigate();
@@ -46,7 +47,7 @@ export default function Login() {
     return (
         <div className="Inicio">
             <div>
-                <img className="logo" src={imagen} alt="logo-utn" />
+               
             </div>
             <div className="Conteiner">
                 

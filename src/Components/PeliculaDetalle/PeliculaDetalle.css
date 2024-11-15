@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 .detalle_pelicula{
     display: flex;
     justify-content: center;
@@ -8,4 +9,15 @@
     border: 2px, solid, black;
     width: 30%; 
     height: auto;
+    font-family: "Poppins", sans-serif;;
+
+}
+
+.detalle_pelicula img {
+    max-width: 100%; 
+    max-height: 300px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    margin: 10px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
 }
