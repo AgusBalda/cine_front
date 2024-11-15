@@ -142,7 +142,7 @@ export const deletePelicula = (id) => async dispatch => {
     await axios.delete("https://cine-back-3.onrender.com/api/Peliculas/Borrar" + id)
   }
   catch{
-    alert("la pelicula esta siendo utilizada por una de las funciones")
+    throw new Error("Error");
   }
 }
 

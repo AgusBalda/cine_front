@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 import { useDispatch, useSelector } from "react-redux";
 import { getDirectores, getGeneros, getIdiomas, getClasificacion, postPelicula, getPelicualDetalle, putPelicula } from "../../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function EditarPelicula() {
       const pelicula = useSelector(state => state.pelicula)
@@ -109,7 +110,13 @@ export default function EditarPelicula() {
             try{
               setLoading(true)
               await dispatch(putPelicula(selectDateF, titulo, duracion, url, genero, clas, idioma, director, id))
-              navegate("/peliculas")
+              Swal.fire({
+                icon: "success",
+                title: "Pelicula Editada Correctamente"
+              })
+              setTimeout(() => {
+                navegate("/peliculas")
+              }, 1000);
               setLoading(false)
             }catch(e){
               alert(e)

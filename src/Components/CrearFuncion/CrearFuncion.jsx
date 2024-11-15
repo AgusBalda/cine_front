@@ -15,6 +15,7 @@ import { MenuItem, FormControlLabel, Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import { format } from "date-fns";
 import Switch from '@mui/material/Switch';
+import Swal from 'sweetalert2';
 
 export default function CrearFuncion() {
     const salas = useSelector(state => state.salas)
@@ -87,7 +88,13 @@ export default function CrearFuncion() {
         else{
             setLoading(true)
             await dispatch(postFuncion(selectedTimeF, precio, subtitulos, dia, idPelicula, idSala,idPromocion,idTipo, estado))
-            navegate("/funciones")
+            Swal.fire({
+              icon: "success",
+              title: "Funcion Creada Correctamente"
+            })
+            setTimeout(() => {
+              navegate("/funciones")
+            }, 1000);
             setLoading(false)
         }
     }

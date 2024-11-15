@@ -15,6 +15,7 @@ import { MenuItem, FormControlLabel, Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import { format } from "date-fns";
 import Switch from '@mui/material/Switch';
+import Swal from 'sweetalert2';
 
 export default function EditarFuncion() {
     const funcion = useSelector(state => state.funcion)
@@ -94,7 +95,13 @@ export default function EditarFuncion() {
         }else{
             setLoading(true)
             await dispatch(putFuncion(selectedTimeF, precio, subtitulos, dia, idPelicula, idSala,idPromocion,idTipo, id, estado))
-            navegate("/funciones")
+            Swal.fire({
+              icon: "success",
+              title: "Funcion Editada Correctamente"
+            })
+            setTimeout(() => {
+              navegate("/funciones")
+            }, 1000);
             setLoading(false)
         }
     }

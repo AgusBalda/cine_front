@@ -15,6 +15,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { format} from 'date-fns';
 import { useDispatch, useSelector } from "react-redux";
 import { getDirectores, getGeneros, getIdiomas, getClasificacion, postPelicula } from "../../redux/actions";
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 export default function CrearPelicula() {
       const generos = useSelector(state => state.generos)
@@ -37,6 +39,7 @@ export default function CrearPelicula() {
       const [error3, setError3] = useState(false)
       const [error4, setError4] = useState(false)
       const [error5, setError5] = useState(false)
+      const navegate = useNavigate();
 
       useEffect(() => {
         dispatch(getIdiomas())
@@ -85,9 +88,14 @@ export default function CrearPelicula() {
           }
           else{
             try{
-              console.log(selectDateF)
               await dispatch(postPelicula(selectDateF, titulo, duracion, url, genero, clas, idioma, director))
-              alert("pelicula creada")
+              Swal.fire({
+                icon: "success",
+                title: "Pelicula Creada Correctamente"
+              })
+              setTimeout(() => {
+                navegate("/peliculas")
+              }, 1000);
             }catch(e){
               alert(e)
             }

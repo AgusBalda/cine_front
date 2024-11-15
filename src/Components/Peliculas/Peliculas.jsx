@@ -12,6 +12,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Swal from 'sweetalert2';
 
 
 export default function  Peliculas() {
@@ -31,9 +32,23 @@ export default function  Peliculas() {
       setOpen(true)
     };
 
-    const handleConfirm = () => {
-      dispatch(deletePelicula(deleteId))
+    const handleConfirm = async () => {
       setOpen(false)
+      try{
+        await dispatch(deletePelicula(deleteId))
+        Swal.fire({
+          icon: "success",
+          title: "Pelicula Eliminada Correctamente"
+        })
+      }catch{
+        Swal.fire({
+          icon: "error",
+          title: "No fue posible eliminar la pelicula",
+          text: "Recuerde revisar que la pelicula no este en ninguna Funcion",
+        })
+      }
+      
+      
     }
 
     const handleCancel = () => {

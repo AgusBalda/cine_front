@@ -59,7 +59,7 @@ export default function NavBar(){
         <div className="navbar">
             <div className="navbarItems">
                 <Stack direction="row" spacing={3} sx={{ alignItems: 'flex-end' }}>
-                    <Link to="/home" style={{ color: 'inherit', textDecoration: 'none', color: '#003bdf'}}>
+                    <Link to="/home" style={{ textDecoration: 'none', color: '#003bdf'}}>
                         <HomeIcon sx={{ fontSize: 40, cursor: 'pointer', '&:hover': { color: 'darkblue' }  }} />
                     </Link>
                 </Stack>
